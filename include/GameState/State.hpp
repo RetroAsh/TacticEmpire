@@ -1,0 +1,27 @@
+#ifndef STATE
+#define STATE
+
+#include <SFML/Graphics.hpp>
+#include "include/Manager/StateManager.hpp"
+
+class StateManager;
+
+class State
+{
+public:
+    State();
+    ~State();
+
+    virtual void Init() = 0;
+    virtual void Free() = 0;
+    virtual void Draw(sf::RenderWindow &a_window) = 0;
+    virtual void Event(sf::Event &a_event) = 0;
+    virtual void Update() = 0;
+
+    void SetManager(StateManager* a_manager);
+
+private:
+    StateManager* m_manager;
+};
+
+#endif
