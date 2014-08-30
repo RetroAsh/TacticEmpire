@@ -14,7 +14,7 @@ endif(${MINGW})
 if(${UNIX})
     SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11")
     SET(platform "gcc")
-endif(${CMAKE_COMPILER_IS_GNUCXX})
+endif(${UNIX})
 
 SET(BASEPATH "${CMAKE_SOURCE_DIR}")
 INCLUDE_DIRECTORIES("${BASEPATH}")
