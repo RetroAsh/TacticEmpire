@@ -2,6 +2,7 @@
 #define JEU
 
 #include <SFML/Graphics.hpp>
+#include "include/Manager/InputManager.hpp"
 #include "include/Manager/StateManager.hpp"
 #include "include/GameState/StateInGame.hpp"
 

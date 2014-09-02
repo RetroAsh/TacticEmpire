@@ -11,7 +11,7 @@ public:
     virtual void Init();
     virtual void Free();
     virtual void Draw(sf::RenderWindow &a_window);
-    virtual void Event(sf::Event &a_event);
+    virtual void Event();
     virtual void Update();
 };
 

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project("TacticEmpire")
 add_definitions(-Wall -Wextra)
-SET(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
+SET(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -g")
 
 if(${MINGW})
     SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++0x")

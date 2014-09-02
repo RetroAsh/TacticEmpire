@@ -3,18 +3,16 @@
 Jeu::Jeu() :
     m_window()
 {
-    m_window.setFramerateLimit(60);
     m_manager.PushState(new StateInGame);
 }
 
 void Jeu::launch()
 {
     m_window.create(sf::VideoMode(640, 480, 32), "Tactic empire");
+    m_window.setFramerateLimit(60);
 
-    sf::Clock t_Time;
-
-    sf::Time t_Previous = t_Time.restart();
-    sf::Time t_Lag(0);
+    InputManager& t_Input = InputManager::Get();
+    t_Input.SetWindow(m_window);
 
     bool t_bIsOpen = true;
 
@@ -31,7 +29,8 @@ void Jeu::launch()
                 }
                 default:
                 {
-                    m_manager.GetState()->Event(t_event);
+                    t_Input.SetEvent(t_event);
+                    m_manager.GetState()->Event();
                     break;
                 }
             }
