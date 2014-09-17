@@ -25,6 +25,11 @@ void ResourcesSingleton::SetFont(const std::string &a_sName, const sf::Font &a_f
 
 sf::Font& ResourcesSingleton::GetFont(const std::string &a_sName)
 {
+    if(m_fontCache.find(a_sName) == m_fontCache.end()){
+        sf::Font t_TmpFont;
+        t_TmpFont.loadFromFile(a_sName);
+        m_fontCache[a_sName] = t_TmpFont;
+    }
     return m_fontCache.at(a_sName);
 }
 

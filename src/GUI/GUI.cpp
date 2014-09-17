@@ -45,9 +45,21 @@ void GUI::DrawGUI(sf::Window &a_Window)
     }
 }
 
-void GUI::ControlGUI(sf::Event &a_Event)
+bool GUI::ControlGUI(sf::Vector2i a_MousePos)
 {
-
+    for(auto t_Widget : m_WidgetList){
+        if(t_Widget.second->Clicked(a_MousePos)){
+            if(InputManager::Get().GetMousePhase() == InputManager::MOUSE_PHASE::DOWN){
+                if(t_Widget.second->OnClicUp){
+                    t_Widget.second->OnClicUp(t_Widget.first);
+                }
+            }else if(InputManager::Get().GetMousePhase() == InputManager::MOUSE_PHASE::DOWN){
+                if(t_Widget.second->OnClicDown){
+                    t_Widget.second->OnClicDown(t_Widget.first);
+                }
+            }
+        }
+    }
 }
 
 unsigned int GUI::ComputeNextID()

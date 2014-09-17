@@ -7,7 +7,11 @@
 #include <functional>
 #include <exception>
 #include <SFML/Graphics.hpp>
+
 #include "include/GUI/Widget/Widget.hpp"
+#include "include/Manager/InputManager.hpp"
+
+class InputManager;
 
 class GUI
 {
@@ -19,10 +23,11 @@ public:
     std::shared_ptr<Widget> getWidget(unsigned int a_WidgetID);
 
     void DrawGUI(sf::Window &a_Window);
-    void ControlGUI(sf::Event &a_Event);
+    bool ControlGUI(sf::Vector2i a_MousePos);
 
 private:
     unsigned int ComputeNextID();
+
 
 private:
     std::vector<std::pair<unsigned int,std::shared_ptr<Widget>>> m_WidgetList;

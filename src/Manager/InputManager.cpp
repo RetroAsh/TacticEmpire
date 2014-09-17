@@ -3,6 +3,7 @@
 InputManager::InputManager() :
     m_bUsable(false)
 {
+    m_MousePhase = NO_PHASE;
 }
 
 InputManager::~InputManager()
@@ -20,6 +21,8 @@ void InputManager::SetEvent(sf::Event &a_Event)
 {
     m_bUsable = true;
     m_Event = a_Event;
+    ComputeInputPhase();
+    ComputeMousePos();
 }
 
 void InputManager::Reset()
@@ -94,3 +97,46 @@ sf::Vector2i InputManager::GetMousePos()
     return sf::Mouse::getPosition(*m_Window);
 }
 
+void InputManager::ComputeInputPhase()
+{
+    m_MousePhase = NO_PHASE;
+    if(m_Event.type == sf::Event::MouseButtonPressed){
+        if(m_Event.mouseButton.button == sf::Mouse::Left){
+            m_MousePhase = DOWN;
+        }
+    }else if(m_Event.type == sf::Event::MouseButtonReleased){
+        if(m_Event.mouseButton.button == sf::Mouse::Left){
+            m_MousePhase = UP;
+        }
+    }
+}
+
+void InputManager::ComputeMousePos()
+{
+    if(m_MousePhase != NO_PHASE){
+        m_MousePos = sf::Mouse::getPosition(*m_Window);
+        SignalDelegat();
+    }else{
+        m_MousePos = sf::Vector2i(0,0);
+    }
+}
+
+void InputManager::SignalDelegat()
+{
+    for(auto t_Delegat : m_RegistredApp){
+        if(t_Delegat(m_MousePos)){
+            break;
+        }
+    }
+}
+
+void InputManager::SignInDelegat(const GUI& a_Obj)
+{
+    using std::placeholders::_1;
+    m_RegistredApp.push_back(std::bind(&GUI::ControlGUI, a_Obj, _1));
+}
+
+InputManager::MOUSE_PHASE InputManager::GetMousePhase()
+{
+    return m_MousePhase;
+}
